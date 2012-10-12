@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[labelfont=bf]{caption}
+\usepackage[left=0.75in, top=1in, right=0.75in, bottom=1in]{geometry}
+\pagestyle{plain}
+\begin{document}
+\rhead{Aaron Okano, Anatoly Torchinsky, Samuel Huang, Justin Maple \\ 
+      ECS 132: Homework 2}
+\thispagestyle{fancy}
+
+% Let the homework begin!
+\section*{Problem 1} 
+
+\subsection*{(a)}
+
+Since this is not an infinite series, we cannot use identities derived in the
+book. Instead, we must do our own. We must solve for $c$ in
+$\displaystyle\sum\limits_{k=1}^{10} ck^2 = 1.0$.
+
+\begin{eqnarray*}
+  \sum\limits_{k=1}^{10} ck^2 &=& c \cdot \frac{10(10 + 1)(2\cdot10+1)}{6} \\
+  &=& c\cdot 385 \\
+  &\Rightarrow& c = \frac{1}{385}
+\end{eqnarray*}
+
+\end{document}
