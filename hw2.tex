@@ -21,11 +21,59 @@
 Since this is not an infinite series, we cannot use identities derived in the
 book. Instead, we must do our own. We must solve for $c$ in
 $\displaystyle\sum\limits_{k=1}^{10} ck^2 = 1.0$.
-
 \begin{eqnarray*}
   \sum\limits_{k=1}^{10} ck^2 &=& c \cdot \frac{10(10 + 1)(2\cdot10+1)}{6} \\
   &=& c\cdot 385 \\
   &\Rightarrow& c = \frac{1}{385}
 \end{eqnarray*}
+
+\subsection*{(b)}
+
+We can find the expected value of X by computing $\sum\limits_{k=1}^{10} k\cdot
+p_{X}(k)$. We know $p_{X}(k) = c\cdot k^2$ and $c = \frac{1}{385}$ so,
+\begin{eqnarray*}
+  \frac{1}{385}\cdot\sum\limits_{k=1}^{10} k\cdot k^2 &=& \frac{1}{385}
+  \sum\limits_{k=1}^{10} k^3 \\
+  &=& \frac{1}{385} \cdot \left[ \frac{1}{4}\cdot10^4 + \frac{1}{2}\cdot10^3 +
+  \frac{1}{4}\cdot10^2\right] \\
+  &\approx& 7.86
+\end{eqnarray*}
+By (3.30), we can compute the variance of X by finding
+\begin{eqnarray*}
+  \left[\sum\limits_{k=1}^{10} k^2\cdot p_{X}(k) \right] - [EX]^2 &=&
+  \frac{1}{385}\cdot \sum\limits_{k=1}^{10} k^3 - 7.86^2 \\
+  &=& \frac{1}{385}\left[ \frac{1}{5}\cdot10^5 + \frac{1}{2}\cdot10^4 +
+  \frac{1}{3}\cdot10^3 - \frac{1}{30}\cdot10\right] - 7.86^2 \\
+  &\approx& 4.02
+\end{eqnarray*}
+
+\section*{Problem 2}
+
+First, we take note that each set of coin tosses follows a binomial
+distribution. Therefore, we can express $P( X_2 = i ), i = 0,1,2$ as $P( X_2 =
+i | C_1 \cup X_2 = i | C_2 ) = P( X_2 = i | C_1 ) + P( X_2 = i | C_2 ) = P(
+C_1) P( X_2 = i | C_1 ) + P( C_2 )P( X_2 = i | C_2 )$. This follows
+intuitively, since there are two possibilities: one where you pick the
+head-weighted coin and one where you pick the tail-weigted coin, after which
+the set of tosses is modeled with a binomial distribution. Using this
+information, we can construct a pmf for the coin tosses:
+\begin{equation*}
+  p_{X_2}(k) = 0.5\cdot\binom{2}{k}(0.9)^k(0.1)^{2 - k} +
+  0.5\cdot\binom{2}{k}(0.1)^k(0.9)^{2 - k}
+\end{equation*}
+Plugging this into the handy formula $EX_2 = \sum\limits_{k=0}^{k=2} k\cdot
+p_{X_2}(k)$ yields
+\begin{eqnarray*}
+  EX_2 &=& \sum\limits_{k=0}^{k=2}
+  k\cdot\left[0.5\cdot\binom{2}{k}(0.9)^k(0.1)^{2 - k} +
+  0.5\cdot\binom{2}{k}(0.1)^k(0.9)^{2 - k}\right] \\
+  &=& 0 + \left[(0.5)(2)(0.9)(0.1) + (0.5)(2)(0.1)(0.9)\right] +
+  2\cdot\left[(0.5)(0.9)^2 + (0.5)(0.1)^2\right] \\
+  &=& 0.18 + 0.82 \\
+  &=& 1
+\end{eqnarray*}
+Finding variance is trivial at this point, since the final term of $EX_2$ can
+simply be doubled to give us $E({X_2}^2) = 0.18 + 1.64 = 1.82$. Then $Var(X_2) =
+E({X_2}^2) - (EX)^2 = 1.82 - 1^2 = 0.82$.
 
 \end{document}
