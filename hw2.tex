@@ -10,7 +10,7 @@
 \pagestyle{plain}
 \begin{document}
 \rhead{Aaron Okano, Anatoly Torchinsky, Samuel Huang, Justin Maple \\ 
-      ECS 132: Homework 2}
+      ECS 132: Homework 3}
 \thispagestyle{fancy}
 
 % Let the homework begin!
@@ -38,6 +38,9 @@ p_{X}(k)$. We know $p_{X}(k) = c\cdot k^2$ and $c = \frac{1}{385}$ so,
   \frac{1}{4}\cdot10^2\right] \\
   &\approx& 7.86
 \end{eqnarray*}
+
+\subsection*{(c)}
+
 By (3.30), we can compute the variance of X by finding
 \begin{eqnarray*}
   \left[\sum\limits_{k=1}^{10} k^2\cdot p_{X}(k) \right] - [EX]^2 &=&
@@ -75,5 +78,96 @@ p_{X_2}(k)$ yields
 Finding variance is trivial at this point, since the final term of $EX_2$ can
 simply be doubled to give us $E({X_2}^2) = 0.18 + 1.64 = 1.82$. Then $Var(X_2) =
 E({X_2}^2) - (EX)^2 = 1.82 - 1^2 = 0.82$.
+
+\section*{Problem 3}
+
+\subsection*{(a)}
+
+We can split this problem into a few special cases. First, we know that any
+time the state transitions from any number of packets in the buffer to one
+packet in the buffer, the container can pass through with at least as many open
+spaces as packets currently in the buffer. This can be generalized to the
+following: if there is no new packet, the container must pass through holding
+no more than $c - i$ packets or if a new packet is generated, it must pass
+through with no more than $c - ( i + 1 )$ packets. In equation form, this is
+\begin{equation} 
+ p_{i0} = (1 - p)\cdot P( N \leq c - i ) + p\cdot P( N \leq c - (i + 1) ),
+ \quad i=0,1,\ldots,b-1
+\end{equation}
+
+Second, we also know that when the buffer is full, whether or not a new packet
+is generated, the state can only make a successful transition if the container
+has exactly enough space for the number of packets to be removed. This means we
+only need to take into account the probability that the container has exactly
+that much room. Mathematically, this reduces to
+\begin{equation}
+  p_{bj} = P( N = c - (b - j) ), \quad j = 1,2,\ldots,b
+\end{equation}
+Furthermore, if $b = c$, then we can include $j = 0$ in the range of this
+function.
+
+Every remaining case we can generalize much like our first case, with the
+exception that the number of space available in the container must be
+\emph{exactly} the amount necessary to switch from the current state to the
+next. Once again, as an equation this is
+\begin{equation}
+  p_{ij} = (1 - p)\cdot P( N = c - (i - j) ) + p\cdot P( N = c - [(i + 1) - j]
+  ), \quad i=0,1,\ldots,b-1 \quad j=1,2,\ldots,b
+\end{equation}
+Note that $P( N > c ) = 0$.
+
+Knowing that $N$ is uniformly distributed on the range (0,5) allows us to
+reduce equation (2) to
+\begin{equation}
+  p_{bj} = \frac{1}{c + 1}
+\end{equation}
+and equation (3) to
+\begin{align}
+  p_{ij} &= (1 - p)\cdot\frac{1}{c + 1} + p\cdot\frac{1}{c + 1} \nonumber \\
+  &= \frac{1}{c + 1}
+\end{align}
+
+Now we can begin to plug in values. Setting $p = 0.6$, $c = b = 5$ and
+simplifying a bit, we get the matrix
+\[
+  P =
+\begin{pmatrix}
+  \frac{9}{10} & \frac{1}{6} & 0 & 0 & 0 & 0 \\[6pt]
+  \frac{11}{15} & \frac{1}{6} & \frac{1}{6} & 0 & 0 & 0 \\[6pt]
+  \frac{17}{30} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0 & 0 \\[6pt]
+  \frac{2}{5} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0
+  \\[6pt]
+  \frac{7}{30} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} &
+  \frac{1}{6} \\[6pt]
+  \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} &
+  \frac{1}{6} \\[6pt]
+\end{pmatrix}
+\]
+
+Solving the equation $(I - P')\pi = 0$ was made easy thanks to the function
+\verb findpi1()  from the book. Plugging our matrix into the function gave us
+the vector
+\[
+  \pi =
+  \begin{pmatrix}
+    0.877 \\
+    0.108 \\
+    0.0134 \\
+    0.00165 \\
+    0.000203 \\
+    0.0000243 \\
+  \end{pmatrix}
+\]
+
+\subsection*{(b)}
+
+Finding the long-run average number of packets which are discarded is trivial,
+now that we have our stationary probabilities. We merely need to find the
+probability that the buffer is full and one more packet is generated. This is
+\begin{align*}
+  \pi_bp &= \pi_5\cdot 0.6 \\
+  &= 2.43\times 10^{-5}\cdot 0.6 \\
+  &= 1.46\times 10^{-5}
+\end{align*}
 
 \end{document}
