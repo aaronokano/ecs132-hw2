@@ -10,7 +10,7 @@
 \pagestyle{plain}
 \begin{document}
 \rhead{Aaron Okano, Anatoly Torchinsky, Samuel Huang, Justin Maple \\ 
-      ECS 132: Homework 3}
+      ECS 132: Homework 2}
 \thispagestyle{fancy}
 
 % Let the homework begin!
@@ -124,21 +124,22 @@ reduce equation (2) to
 and equation (3) to
 \begin{align}
   p_{ij} &= (1 - p)\cdot\frac{1}{c + 1} + p\cdot\frac{1}{c + 1} \nonumber \\
-  &= \frac{1}{c + 1}
+         &= \frac{1}{c + 1}
 \end{align}
+However, equation (5) only applies where both probabilities exist.
 
 Now we can begin to plug in values. Setting $p = 0.6$, $c = b = 5$ and
 simplifying a bit, we get the matrix
 \[
   P =
 \begin{pmatrix}
-  \frac{9}{10} & \frac{1}{6} & 0 & 0 & 0 & 0 \\[6pt]
-  \frac{11}{15} & \frac{1}{6} & \frac{1}{6} & 0 & 0 & 0 \\[6pt]
-  \frac{17}{30} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0 & 0 \\[6pt]
-  \frac{2}{5} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0
+  \frac{9}{10} & \frac{1}{10} & 0 & 0 & 0 & 0 \\[6pt]
+  \frac{11}{15} & \frac{1}{6} & \frac{1}{10} & 0 & 0 & 0 \\[6pt]
+  \frac{17}{30} & \frac{1}{6} & \frac{1}{6} & \frac{1}{10} & 0 & 0 \\[6pt]
+  \frac{2}{5} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{10} & 0
   \\[6pt]
   \frac{7}{30} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} &
-  \frac{1}{6} \\[6pt]
+  \frac{1}{10} \\[6pt]
   \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} &
   \frac{1}{6} \\[6pt]
 \end{pmatrix}
